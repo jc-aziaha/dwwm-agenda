@@ -37,6 +37,7 @@ session_start();
             return header("Location: " . $_SERVER['HTTP_REFERER']);
         }
 
+        
         var_dump("On peut continuer"); die();
 
     }
