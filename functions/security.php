@@ -39,7 +39,7 @@ declare(strict_types=1);
      * @param string $value
      * @return boolean
      */
-    function honet_pot_middleware(string $value) : bool
+    function honey_pot_middleware(string $value) : bool
     {
         if ( !isset($value) || !empty($value) ) 
         {

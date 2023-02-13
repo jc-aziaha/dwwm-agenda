@@ -29,8 +29,8 @@ session_start();
 
 
         // Protégeons le serveur contre les robots spameurs : https://nordvpn.com/fr/blog/honeypot-informatique/
-        // Si le pot de miel a détecté un robot,
-        if( honet_pot_middleware($_POST['create_form_honey_pot']))
+        // Si le pot de miel a détecté un robot spameur,
+        if( honey_pot_middleware($_POST['create_form_honey_pot']))
         {
             // On redirige automatiquement l'utilisateur vers la page de laquelle proviennent les informations
             // Puis, on arrête l'exécution du script
