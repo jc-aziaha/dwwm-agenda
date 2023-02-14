@@ -37,8 +37,31 @@ session_start();
             // Puis, on arrête l'exécution du script
             return header("Location: " . $_SERVER['HTTP_REFERER']);
         }
-        
-        var_dump("On peut continuer"); die();
+
+
+        // Protégeons le serveur contre la faille de type XSS 
+        $post_clean = xss_protection($_POST);
+
+
+        /*
+         *----------------------------------------------------------------
+         * Pensons en ensuite à la validation des données du formulaires
+         *----------------------------------------------------------------
+        */
+        require __DIR__ . "/functions/validator.php";
+
+        $errors = [];
+
+        // Pour le prénom
+        if (isset($post_clean['first_name'])) 
+        {
+            if ( is_blank($post_clean['first_name']) ) 
+            {
+                $errors['first_name'] = "Le prénom est obligatoire.";
+            }
+        }
+
+        var_dump($errors); die();
 
     }
 
