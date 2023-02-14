@@ -14,6 +14,7 @@ session_start();
         */
         require __DIR__ . "/functions/security.php";
 
+
         // Protégeons le serveur contre la faille de type csrf : https://www.vaadata.com/blog/fr/attaques-csrf-principes-impacts-exploitations-bonnes-pratiques-securite/
         // Si le jéton de sécurité provenant du formulaire n'est pas le même que celui généré par le système,
         if( csrf_middleware($_POST['create_form_csrf_token'], $_SESSION['create_form_csrf_token']) )
@@ -36,7 +37,6 @@ session_start();
             // Puis, on arrête l'exécution du script
             return header("Location: " . $_SERVER['HTTP_REFERER']);
         }
-
         
         var_dump("On peut continuer"); die();
 
