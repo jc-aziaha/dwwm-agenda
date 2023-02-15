@@ -132,6 +132,10 @@ session_start();
             {
                 $errors['phone'] = "Veuillez entrer un numéro de téléphone valide.";
             }
+            else if ( is_already_exists_on_create($post_clean['phone'], "contact", "phone") )
+            {
+                $errors['phone'] = "Ce numéro de téléphone appartient déjà à l'un de vos contacts.";
+            }
         }
 
 
@@ -158,8 +162,29 @@ session_start();
             // Effectuons une redirection vers la page de laquelle proviennent les informations
             // Puis, arrêtons l'exécution du script.
             return header("Location: " . $_SERVER["HTTP_REFERER"]);
+            // return header("Location: create.php");
         }
 
+        // Appelons le manager
+        require __DIR__ . "/functions/manager.php";
+
+        // Effectuons la requête d'insertion des données dans la table "contact"
+        create_contact([
+            "first_name" => $post_clean['first_name'],
+            "last_name"  => $post_clean['last_name'],
+            "email"      => $post_clean['email'],
+            "age"        => $post_clean['age'],
+            "phone"      => $post_clean['phone'],
+            "comment"    => $post_clean['comment'],
+        ]);
+
+        // Générons un message à afficher à l'utilisateur pour lui expliquer que son nouveau contact
+        // a bien été ajouté à la liste.
+        $_SESSION['success'] = "Le contact a été ajouté à la liste avec succès.";
+
+        // Effectuons une redirection vers la page d'accueil
+        // Puis, arrêtons l'exécution du script.
+        return header("Location: index.php");
     }
 
 

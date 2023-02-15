@@ -1,5 +1,6 @@
 <?php
 
+
     /**
      * Cette fonction permet de vérifier si la valeur est vide.
      *
@@ -49,6 +50,7 @@
         return true;
     }
 
+
     /**
      * Cette fonction vérifie si longueur de la valeur est supérieur ou non à la longueur attendue.
      * 
@@ -75,6 +77,7 @@
 
         // return (mb_strlen($value) > $expected_length) ? true : false;
     }
+
 
     /**
      * Cette fonction vérifie si longueur de la valeur est inférieur ou non à la longueur attendue.
@@ -125,7 +128,6 @@
     }
 
 
-
     /**
      * Cette fonction vérifie si la valeur existe déjà dans une colonne d'une table de la base de données ou non.
      * 
@@ -151,6 +153,7 @@
         // $req->fetch();
 
         $row = $req->rowCount();
+        $req->closeCursor();
 
         if ($row == 0) 
         {
@@ -225,7 +228,7 @@
         {
             return false;
         }
-        
+
         return true;
     }
 
