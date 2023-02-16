@@ -8,6 +8,8 @@ session_start();
     // Récupération de tous les contacts
     $contacts = find_all_contacts();
 
+    $_SESSION['delete_contact_csrf_token'] = bin2hex(random_bytes(40));
+
 
 
 
@@ -48,6 +50,14 @@ session_start();
                         <hr>
                         <a class="text-dark mx-2" title="Voir les détails" href="#" data-bs-toggle="modal" data-bs-target="#modal_<?= htmlspecialchars($contact['id']) ?>"><i class="fa-solid fa-eye"></i></a>
                         <a href="edit.php?contact_id=<?= htmlspecialchars($contact['id']) ?>" class="text-secondary mx-2" title="Modifier ce contact"><i class="fa-solid fa-pencil"></i></a>
+                        <a class="text-danger" href="#" onclick="event.preventDefault(); confirm('Confirmer la suppression?') && document.querySelector('#delete_' + <?= htmlspecialchars($contact['id']) ?>).submit();" title="Supprimer ce contact"><i class="fa-solid fa-trash-can"></i></a>
+
+                        <form id="delete_<?= htmlspecialchars($contact['id']) ?>" action="delete.php" method="post">
+                            <input type="hidden" name="delete_contact_csrf_token" value="<?= $_SESSION['delete_contact_csrf_token'] ?>">
+                            <input type="hidden" name="contact_id" value="<?= htmlspecialchars($contact['id']) ?>">
+                            <!-- <input type="submit" class="btn btn-sm btn-danger" value="Supprimer"> -->
+                        </form>
+
 
                         <!-- Modal -->
                         <div class="modal fade" id="modal_<?= htmlspecialchars($contact['id']) ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

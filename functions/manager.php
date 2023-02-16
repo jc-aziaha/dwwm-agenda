@@ -126,3 +126,18 @@
     }
 
 
+
+    function delete_contact(int $id) : void
+    {
+        require __DIR__ . "/../db/connexion.php";
+
+        $req = $db->prepare("DELETE FROM contact WHERE id=:id");
+
+        $req->bindValue(":id", $id);
+
+        $req->execute();
+
+        $req->closeCursor();
+    }
+
+
