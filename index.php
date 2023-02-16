@@ -46,7 +46,8 @@ session_start();
                         <p><strong>Email</strong> : <?= htmlspecialchars($contact['email']); ?></p>
                         <p><strong>Téléphone</strong> : <?= htmlspecialchars($contact['phone']); ?></p>
                         <hr>
-                        <a class="text-dark" href="#" data-bs-toggle="modal" data-bs-target="#modal_<?= htmlspecialchars($contact['id']) ?>"><i class="fa-solid fa-eye"></i></a>
+                        <a class="text-dark mx-2" title="Voir les détails" href="#" data-bs-toggle="modal" data-bs-target="#modal_<?= htmlspecialchars($contact['id']) ?>"><i class="fa-solid fa-eye"></i></a>
+                        <a href="edit.php?contact_id=<?= htmlspecialchars($contact['id']) ?>" class="text-secondary mx-2" title="Modifier ce contact"><i class="fa-solid fa-pencil"></i></a>
 
                         <!-- Modal -->
                         <div class="modal fade" id="modal_<?= htmlspecialchars($contact['id']) ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -54,3 +54,41 @@
         return $data;
         
     }
+
+
+    /**
+     * Cette fonction permet de récupérer un contact en particulier de la table "contact"
+     *
+     * @param integer $id
+     * 
+     * @return array|false
+     */
+    function contact_find_by(int $id)
+    {
+        // Etablissons la connexion avec la base de données
+        require __DIR__ . "/../db/connexion.php";
+
+        /*
+         * Préparons la requête de sélection qui dit : 
+         *      Séléctionne toutes les colonnes de la table "contact", 
+         *      là où l'identifiant du contact dans la table correspond à l'identifiant récupéré depuis la barre d'url 
+        */
+        $req = $db->prepare("SELECT * FROM contact WHERE id=:id LIMIT 1");
+
+        // Remplaçons :id par sa vraie valeur
+        $req->bindValue(":id", $id);
+
+        // Exécutons la requête
+        $req->execute();
+
+        // Récupérons l'enregistrement sélectionné
+        $data = $req->fetch();
+
+        // Fermons le curseur (Non obligatoire)
+        $req->closeCursor();
+
+        // var_dump($data); die();
+
+        // Retournons l'enregistrement sélectionné
+        return $data;
+    }
