@@ -167,6 +167,57 @@
 
 
     /**
+     * 
+     * Cette fonction force une règle unique à ignorer un id donné.
+     * 
+     * Elle retourne "true" si la valeur existe déjà en ignorant celle de l'entité sur laquelle la modification est faite,
+     * "false" dans le cas contraire.
+     *
+     * @param string $value
+     * @param string $table
+     * @param string $column
+     * @param string $id
+     * 
+     * @return boolean
+     */
+    function is_already_exists_on_update(string $value, string $table, string $column, string $id)
+    {
+        
+        // Eteblissons la connexion à la base de données
+        require __DIR__ . "/../db/connexion.php";
+        
+        // Faisons la requête de récupération de tous les enregistrements de la table ciblée
+        $req = $db->prepare("SELECT * FROM {$table}");
+        
+        // Executons la requête
+        $req->execute();
+        
+        // Récupérons tous les enregistrements de la table
+        $all_rows = $req->fetchAll();
+        
+        // Pour chaque enregistrement de la table récupéré lors du tour de boucle,
+        foreach ($all_rows as $row) 
+        {
+            // Si son id n'est pas le même que celui de l'entité dont on souhaite modifier les colonnes
+            if ( $row['id'] != $id ) 
+            {
+                // Si la valeur associée à la colonne de cette entité est la même chose que la valeur envoyée par l'utilisateur depuis le formulaire,
+                if ( $row[$column] == $value ) 
+                {
+                    // die('testons');
+                    // C'est que la valeur envoyée par l'utilisateur existe déjà dans la table.
+                    return true;
+                }
+            }
+        }
+
+        // Si après avoir parcouru tous les enregistrements, la valeur envoyée par l'utilisateur n'a pas été retrouvée,
+        // c'est qu'elle n'existe pas dans la table.
+        return false;
+    }
+
+
+    /**
      * Cette fonction vérifie si la valeur est un nombre ou non.
      *
      * Elle retourne "true" si ce n'est pas un nombre, "false" dans le cas contraire.

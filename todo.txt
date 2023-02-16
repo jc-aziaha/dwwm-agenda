@@ -1,2 +1,7 @@
 - typage de la fonction de sortie
 (indice wamp xampp)
+
+
+
+- Insert windows in mackbook 
+(Bootcamp assistant)

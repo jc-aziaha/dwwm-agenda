@@ -65,7 +65,7 @@ session_start();
                                         <?php endif ?>
 
                                         <?php if( isset($contact['comment']) && !empty($contact['comment']) ) : ?>
-                                            <p><strong>Commentaires</strong>: <?= $contact['comment'] ?></p>
+                                            <p><strong>Commentaires</strong>: <?= nl2br($contact['comment']) ?></p>
                                         <?php else : ?>
                                             <p><em>Commentaire non renseigné</em></p>
                                         <?php endif ?>
